@@ -1,4 +1,4 @@
- axios
+axios
   .get("https://api.github.com/users/Aliszl")
   .then(response => {
     console.log(response);
@@ -25,28 +25,31 @@ axios
     // console.log(response);
     // console.log(response.data);
     // console.log(response.data[0].login);
- let array = response.data;
- array.forEach((follower)=>{
-   console.log(follower.login);
-   axios.get(`https://api.github.com/users/${follower.login}`).then(response => {
-    let newCard = document.querySelector(".cards");
-    newCard.append(createCard(response));
-  })
-  .catch(error => {
-    console.log(error);
-  });
- })
+    let array = response.data;
+    array.forEach(follower => {
+      console.log(follower.login);
+      axios
+        .get(`https://api.github.com/users/${follower.login}`)
+        .then(response => {
+          let newCard = document.querySelector(".cards");
+          newCard.append(createCard(response));
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
   })
   .catch(error => {
     console.log(error);
   });
 
-const followersArrayb = [
-  "tetondan",
-  "dustinmyers",
-  "justsml",
-  "luishrd",
-  "bigknell"];
+// const followersArrayb = [
+//   "tetondan",
+//   "dustinmyers",
+//   "justsml",
+//   "luishrd",
+//   "bigknell"
+// ];
 // followersArrayb.forEach((follower)=>{
 //   // console.log(follower);
 //   axios
@@ -88,18 +91,25 @@ function createCard(obj) {
   const info = document.createElement("div");
   const name = document.createElement("h3");
   const userName = document.createElement("p");
+
+  const buttons = document.createElement('div');
+  const buttonOpen = document.createElement('button');
+  const buttonClose = document.createElement('button');
   const location = document.createElement("p");
   const profile = document.createElement("p");
   const gitHubLink = document.createElement("a");
   const followers = document.createElement("p");
   const following = document.createElement("p");
   const bio = document.createElement("p");
+ 
   //Class Names
   card.classList.add("card");
   info.classList.add("card-info");
   name.classList.add("name");
   userName.classList.add("username");
-  //Content
+  buttons.classList.add('buttons');
+  buttonOpen.classList.add('btn-open');
+   //Content
   name.textContent = obj.data.name;
   img.src = obj.data.avatar_url;
   userName.textContent = `username:  ${obj.data.login}`;
@@ -110,10 +120,12 @@ function createCard(obj) {
   followers.textContent = `Followers ${obj.data.followers}`;
   following.textContent = `Following ${obj.data.following}`;
   bio.textContent = `Bio: ${obj.data.bio}`;
+  buttonOpen.textContent = '	\u21C5';
   //HTML structure
   card.append(img);
   card.append(info);
-
+  card.append(buttons);
+  buttons.append(buttonOpen);
   info.append(name);
   info.append(userName);
   info.append(location);
@@ -124,8 +136,13 @@ function createCard(obj) {
 
   profile.append(gitHubLink);
 
+  buttonOpen.addEventListener("click",(event)=>{
+    card.classList.toggle("increase-height");
+  })
+
   return card;
 }
+
 
 /* List of LS Instructors Github username's: 
   tetondan
