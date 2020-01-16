@@ -1,6 +1,8 @@
  axios
   .get("https://api.github.com/users/Aliszl")
   .then(response => {
+    console.log(response);
+    console.log(response.data);
     let newCard = document.querySelector(".cards");
     newCard.append(createCard(response));
   })
@@ -17,6 +19,28 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+axios
+  .get("https://api.github.com/users/Aliszl/followers")
+  .then(response => {
+    // console.log(response);
+    // console.log(response.data);
+    // console.log(response.data[0].login);
+ let array = response.data;
+ array.forEach((follower)=>{
+   console.log(follower.login);
+   axios.get(`https://api.github.com/users/${follower.login}`).then(response => {
+    let newCard = document.querySelector(".cards");
+    newCard.prepend(createCard(response));
+  })
+  .catch(error => {
+    console.log(error);
+  });
+ })
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  
 const followersArray = [
   "tetondan",
   "dustinmyers",
@@ -24,12 +48,12 @@ const followersArray = [
   "luishrd",
   "bigknell"];
 followersArray.forEach((follower)=>{
-  console.log(follower);
+  // console.log(follower);
   axios
   .get(`https://api.github.com/users/${follower}`)
   .then(response => {
-    console.log(response);
-    console.log(response.data);
+    // console.log(response);
+    // console.log(response.data);
     let newCard = document.querySelector(".cards");
     newCard.prepend(createCard(response));
   })
@@ -37,15 +61,7 @@ followersArray.forEach((follower)=>{
     console.log(error);
   });
 })
-axios
-  .get("https://api.github.com/users/Aliszl/followers")
-  .then(response => {
-    console.log(response);
-    console.log(response.data);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+
 // Step 3: Create a function that accepts a single object as its only argument,
 //    Using DOM methods and properties, create a component that will return the following DOM element:
 {
