@@ -1,7 +1,15 @@
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
-*/
+*/ axios
+  .get("https://api.github.com/users/Aliszl")
+  .then(response => {
+    console.log(response);
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 axios
   .get("https://api.github.com/users/Aliszl/followers")
   .then(response => {
