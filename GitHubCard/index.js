@@ -30,7 +30,7 @@ axios
    console.log(follower.login);
    axios.get(`https://api.github.com/users/${follower.login}`).then(response => {
     let newCard = document.querySelector(".cards");
-    newCard.prepend(createCard(response));
+    newCard.append(createCard(response));
   })
   .catch(error => {
     console.log(error);
@@ -40,27 +40,27 @@ axios
   .catch(error => {
     console.log(error);
   });
-  
-const followersArray = [
+
+const followersArrayb = [
   "tetondan",
   "dustinmyers",
   "justsml",
   "luishrd",
   "bigknell"];
-followersArray.forEach((follower)=>{
-  // console.log(follower);
-  axios
-  .get(`https://api.github.com/users/${follower}`)
-  .then(response => {
-    // console.log(response);
-    // console.log(response.data);
-    let newCard = document.querySelector(".cards");
-    newCard.prepend(createCard(response));
-  })
-  .catch(error => {
-    console.log(error);
-  });
-})
+// followersArrayb.forEach((follower)=>{
+//   // console.log(follower);
+//   axios
+//   .get(`https://api.github.com/users/${follower}`)
+//   .then(response => {
+//     // console.log(response);
+//     // console.log(response.data);
+//     let newCard = document.querySelector(".cards");
+//     newCard.prepend(createCard(response));
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
+// })
 
 // Step 3: Create a function that accepts a single object as its only argument,
 //    Using DOM methods and properties, create a component that will return the following DOM element:
