@@ -6,6 +6,8 @@
   .then(response => {
     console.log(response);
     console.log(response.data);
+    let newCard = document.querySelector(".cards");
+    newCard.append(createCard(response))
   })
   .catch(error => {
     console.log(error);
@@ -83,7 +85,7 @@ function createCard(obj) {
   //Content
   name.textContent = obj.data.name;
   img.src = obj.data.avatar_url;
-  userName.textContent = obj.data.login;
+  userName.textContent = `username:  ${obj.data.login}`;
   location.textContent = `Location: ${obj.data.location}`;
   profile.textContent = `Profile: `;
   gitHubLink.setAttribute("href", obj.data.html_url);
